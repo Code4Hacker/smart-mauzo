@@ -47,10 +47,12 @@ CREATE TABLE DEALS (
     dealPicture VARCHAR(50),
     registeredBy INT,
     customerId VARCHAR(30),
-    registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
-    FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (customerId) REFERENCES CUSTOMERS (customerUnique) ON DELETE CASCADE ON UPDATE CASCADE
+    price VARCHAR(100),
+    registedDate DATE DEFAULT CURRENT_TIMESTAMP()
 );
+ALTER TABLE DEALS ADD FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE DEALS ADD FOREIGN KEY (customerId) REFERENCES CUSTOMERS (customerUnique) ON DELETE CASCADE ON UPDATE CASCADE;
 
 INSERT INTO ADMINS (adminID, adminFirst, adminLast, adminEmail, adminContact, adminProfile, adminPasscode) VALUES (NULL, 'Gemini','Child','geminichild@gmail.com','+255628272363','/admin/admin__.jpg','admin123'), (NULL, 'Admin2','MymiddleName','geminichild2@gmail.com','+255628272363','/admin/admin__.jpg','admin123');
 
@@ -58,4 +60,5 @@ INSERT INTO EMPLOYEES (employeeID, employeeFirst, employeeLast, employeeEmail, e
 
 INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer 1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/customers/employee__.jpg','CM2334CM',1),(NULL, 'Customer 2','Doe','customer2@gmail.com','Dodoma Mjini','+255628272363','/customers/employee__.jpg','CM23343M',2);
 
-INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealSummary, dealPicture, registeredBy, customerId) VALUES (NULL, 'Deal 2','Five Feets of pant, Jackects 3m width, row cutting Jackets','3m pants, 1pc cloth','/deals/employee__.jpg',1,'CM2334CM'),(NULL, 'Deal 1','Four Feets of pant, Jackects 3m width, row cutting Jackets','3m pants, 1pc cloth','/deals/employee__.jpg',1,'CM2334CM');
+INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealSummary, dealPicture, registeredBy, customerId, price) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime.
+The size of the JavaScript library is fixed and doesn\'t depend on the features used. And it\'s actually really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900'),(NULL, 'Deal 1','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900);
