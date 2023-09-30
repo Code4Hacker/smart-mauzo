@@ -12,7 +12,8 @@
                 while($row = $res_for -> fetch_assoc()){
                     $data_render[] = $row;
                 }
-                echo json_encode(array("status" => "200","deals" => $data_render));
+                $row_count = $res_for -> num_rows;
+                echo json_encode(array("status" => "200","deals" => $data_render,"counter" => $row_count));
             }
             $connector -> close();
             break;
@@ -51,7 +52,7 @@
            $id = $content['id'];
            $id = str_replace("'","\'", $id);
            if(!empty($id)){
-            $sql_delete = "DELETE FROM EMPLOYEES WHERE employeeID = '$id'";
+            $sql_delete = "DELETE FROM DEALS WHERE dealID = '$id'";
 
             $response = mysqli_query($connector, $sql_delete);
 
