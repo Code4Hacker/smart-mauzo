@@ -5,7 +5,7 @@
     $host = 'localhost';
     $username = 'root';
     $passcode = '';
-    $dbname = 'TAILOR';
+    $dbname = 'tailor';
 
     $connector = mysqli_connect($host,$username,$passcode,$dbname);
 

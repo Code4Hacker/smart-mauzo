@@ -3,36 +3,19 @@
 
    if($connector){
      switch($_SERVER['REQUEST_METHOD']){
-        case 'GET':
-            $employee = $_GET['employee'];
-            $customer = $_GET['customer'];
-            $sql_query = "SELECT * FROM DEALS WHERE registeredBy = '$employee' AND customerId = '$customer'";
-            $res_for = $connector -> query($sql_query);
-            if($res_for){
-                $data_render = array();
-                while($row = $res_for -> fetch_assoc()){
-                    $data_render[] = $row;
-                }
-                $row_count = $res_for -> num_rows;
-                echo json_encode(array("status" => "200","deals" => $data_render,"counter" => $row_count));
-            }
-            $connector -> close();
-            break;
         case 'POST':
-            $id = $_POST['id'];
-            $id = str_replace("'","\'", $id);
+            $email = $_POST['Aemail'];
+            $passcode = $_POST['Apasscode'];
+            $passcode = str_replace("'","\'", $passcode);
+            $passcode = str_replace("'","\'", $passcode);
 
-            $sql_post = "SELECT * FROM DEALS WHERE customerId = '$id'";
+            $sql_post = "SELECT * FROM ADMINS WHERE adminEmail = '$email' AND adminPasscode = '$passcode' ";
                 $addcustomer = $connector -> query($sql_post);
 
-                if($addcustomer){
-                    $data_render = array();
-                    while($row = $addcustomer -> fetch_assoc()){
-                        $data_render[] = $row;
-                    }
-                    echo json_encode(array("status" => "200", "deals" => $data_render));
+                if($addcustomer -> num_rows == 1){
+                    echo json_encode(array("status" => "200"));
                 }else{
-                    echo json_encode(array("status" => "500", "message" => "Something went Wrong"));
+                    echo json_encode(array("status" => "404"));
                 }
                mysqli_close($connector);
 

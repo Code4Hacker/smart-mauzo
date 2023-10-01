@@ -5,7 +5,7 @@
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
             $admin = $_GET['admin_id'];
-            $sql_query = "SELECT * FROM ADMINS WHERE adminID = '$admin' ORDER BY adminID DESC";
+            $sql_query = "SELECT * FROM ADMINS WHERE adminEmail = '$admin' ORDER BY adminID DESC";
             $res_for = $connector -> query($sql_query);
 
             if($res_for -> num_rows == 1){
