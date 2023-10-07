@@ -19,23 +19,50 @@
             $connector -> close();
             break;
         case 'POST':
-            $id = $_POST['id'];
-            $id = str_replace("'","\'", $id);
+            $title = $_POST['title'];
+            $descr = $_POST['description'];
+            $requires = $_POST['requires'];
+            $registeredBy = $_POST['bywho'];
+            $customerId = $_POST['cId'];
+            $price = $_POST['price'];
+            $measures = $_POST['measures'];
+            $category = $_POST['category'];
+            $status = $_POST['status'];
+            $tracking = $_POST['track'];
 
-            $sql_post = "SELECT * FROM DEALS WHERE customerId = '$id'";
-                $addcustomer = $connector -> query($sql_post);
+            $title = str_replace("'", "\'", $title);
+            $descr = str_replace("'", "\'", $descr);
+            $requires = str_replace("'", "\'", $requires);
+            $registeredBy = str_replace("'", "\'", $registeredBy);
+            $customerId = str_replace("'", "\'", $customerId);
+            $price = str_replace("'", "\'", $price);
+            $measures = str_replace("'", "\'", $measures);
+            $category = str_replace("'", "\'", $category);
+            $status = str_replace("'", "\'", $status);
+            $tracking = str_replace("'", "\'", $tracking);
 
-                if($addcustomer){
-                    $data_render = array();
-                    while($row = $addcustomer -> fetch_assoc()){
-                        $data_render[] = $row;
+            $sql_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$customerId'";
+            $res_for = $connector -> query($sql_query);
+
+            if($res_for -> num_rows == 1){
+                if(!empty($title) && !empty($descr) && !empty($requires) && !empty($registeredBy) && !empty($customerId) && !empty($price) && !empty($measures) && !empty($category) && !empty($status) && !empty($tracking)){
+                    $query_send = "INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, registeredBy, customerId, price, measurements, categories, dealStatus, tracking) VALUES (NULL, '$title','$descr','$requires','$registeredBy','$customerId','$price','$measures', '$category', '$status','$tracking')";
+
+                    $responses  =  $connector -> query($query_send);
+
+                    if($responses){
+                        echo json_encode(array("status" => "200","message" => "New Deall Added, Successiful!"));
+                    }else{
+                        echo json_encode(array("status" => "500","message" => "Something Went Wrong!"));
                     }
-                    echo json_encode(array("status" => "200", "deals" => $data_render));
                 }else{
-                    echo json_encode(array("status" => "500", "message" => "Something went Wrong"));
+                    echo json_encode(array("status" => "400","message" => "Fill All Fields"));
                 }
-               mysqli_close($connector);
+            }else{
+                echo json_encode(array("status" => "404","message" => "No Customer with this Id ".$customerId));
+            }
 
+            
             break;
         case 'DELETE':
            $json_data = file_get_contents('php://input');

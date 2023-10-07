@@ -1,6 +1,8 @@
--- CREATE DATABASE TAILOR;
+DROP DATABASE TAILOR;
 
-USE id21333672_tailor;
+CREATE DATABASE TAILOR;
+
+USE TAILOR;
 
 CREATE TABLE ADMINS (
     adminID INT PRIMARY KEY AUTO_INCREMENT,
@@ -43,13 +45,19 @@ CREATE TABLE DEALS (
     dealID INT PRIMARY KEY AUTO_INCREMENT,
     dealTitle VARCHAR(30),
     dealDescription TEXT,
-    dealSummary TEXT,
+    dealRequirements TINYTEXT,
     dealPicture VARCHAR(50),
     registeredBy INT,
     customerId VARCHAR(30),
     price VARCHAR(100),
-    registedDate DATE DEFAULT CURRENT_TIMESTAMP()
+    measurements TEXT,
+    categories VARCHAR(40),
+    dealStatus VARCHAR(30) DEFAULT "PENDING",
+    tracking VARCHAR(30) DEFAULT "IN PRODUCTION",
+    registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
+    dateOut DATE DEFAULT CURRENT_TIMESTAMP()
 );
+
 ALTER TABLE DEALS ADD FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE DEALS ADD FOREIGN KEY (customerId) REFERENCES CUSTOMERS (customerUnique) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -60,5 +68,5 @@ INSERT INTO EMPLOYEES (employeeID, employeeFirst, employeeLast, employeeEmail, e
 
 INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer 1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/profiles/profile.jpg','CM2334CM',1),(NULL, 'Customer 2','Doe','customer2@gmail.com','Dodoma Mjini','+255628272363','/profiles/profile.jpg','CM23343M',2);
 
-INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealSummary, dealPicture, registeredBy, customerId, price) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime.
-The size of the JavaScript library is fixed and doesn\'t depend on the features used. And it\'s actually really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900'),(NULL, 'Deal 1','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900),(NULL, 'Deal 3','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900);
+INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, dealPicture, registeredBy, customerId, price, measurements, categories) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime.
+The size of the JavaScript library is fixed and doesn\'t depend on the features used. And it\'s actually really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900', 'L - 50ft, W - 30cm, HPS - 34inch', 'Men Trouser'),(NULL, 'Deal 1','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 54ft, W - 34cm, HPS - 34inch', 'Men Trouser'),(NULL, 'Deal 3','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 26ft, W - 37cm, HPS - 34inch','Women Skirt/Trouser');
