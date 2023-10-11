@@ -4,7 +4,7 @@
    if($connector){
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
-            $sql_query = "SELECT * FROM DEALS ORDER BY dealID DESC";
+            $sql_query = "SELECT * FROM DEALS WHERE deleted = 'false' ORDER BY dealID DESC";
             $res_for = $connector -> query($sql_query);
 
             if($res_for){
@@ -52,7 +52,7 @@
            $id = $content['id'];
            $id = str_replace("'","\'", $id);
            if(!empty($id)){
-            $sql_delete = "DELETE FROM DEALS WHERE dealID = '$id'";
+            $sql_delete = "UPDATE DEALS SET deleted='true' WHERE dealID = '$id'";
 
             $response = mysqli_query($connector, $sql_delete);
 

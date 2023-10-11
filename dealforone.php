@@ -6,7 +6,7 @@
         case 'GET':
             $employee = $_GET['employee'];
             $customer = $_GET['customer'];
-            $sql_query = "SELECT * FROM DEALS WHERE registeredBy = '$employee' AND customerId = '$customer'";
+            $sql_query = "SELECT * FROM DEALS WHERE registeredBy = '$employee' AND customerId = '$customer' AND deleted = 'false' ORDER BY dealID DESC";
             $res_for = $connector -> query($sql_query);
             if($res_for){
                 $data_render = array();
@@ -29,6 +29,7 @@
             $category = $_POST['category'];
             $status = $_POST['status'];
             $tracking = $_POST['track'];
+            $quantity = $_POST['quantity'];
 
             $title = str_replace("'", "\'", $title);
             $descr = str_replace("'", "\'", $descr);
@@ -40,13 +41,21 @@
             $category = str_replace("'", "\'", $category);
             $status = str_replace("'", "\'", $status);
             $tracking = str_replace("'", "\'", $tracking);
+            $quantity = str_replace("'", "\'", $quantity);
 
             $sql_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$customerId'";
             $res_for = $connector -> query($sql_query);
 
             if($res_for -> num_rows == 1){
-                if(!empty($title) && !empty($descr) && !empty($requires) && !empty($registeredBy) && !empty($customerId) && !empty($price) && !empty($measures) && !empty($category) && !empty($status) && !empty($tracking)){
-                    $query_send = "INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, registeredBy, customerId, price, measurements, categories, dealStatus, tracking) VALUES (NULL, '$title','$descr','$requires','$registeredBy','$customerId','$price','$measures', '$category', '$status','$tracking')";
+                if(!empty($title) && !empty($descr) && !empty($requires) && !empty($registeredBy) && !empty($customerId) && !empty($price) && !empty($measures) && !empty($category) && !empty($quantity)){
+                    $query_send = "";
+                    if(empty($status)){
+                        $query_send = "INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, registeredBy, customerId, price, measurements, categories, tracking, quantity) VALUES (NULL, '$title','$descr','$requires','$registeredBy','$customerId','$price','$measures', '$category','$tracking', '$quantity')";
+                    } else if(empty($tracking)){
+                        $query_send = "INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, registeredBy, customerId, price, measurements, categories, dealStatus, quantity) VALUES (NULL, '$title','$descr','$requires','$registeredBy','$customerId','$price','$measures', '$category', '$status', '$quantity')";
+                    } else {
+                        $query_send = "INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, registeredBy, customerId, price, measurements, categories, dealStatus, tracking, quantity) VALUES (NULL, '$title','$descr','$requires','$registeredBy','$customerId','$price','$measures', '$category', '$status','$tracking', '$quantity')";
+                    }
 
                     $responses  =  $connector -> query($query_send);
 
@@ -70,7 +79,7 @@
            $id = $content['id'];
            $id = str_replace("'","\'", $id);
            if(!empty($id)){
-            $sql_delete = "DELETE FROM CUSTOMERS WHERE customerID = '$id'";
+            $sql_delete = "UPDATE CUSTOMERS SET deleted='true' WHERE customerID = '$id'";
 
             $response = mysqli_query($connector, $sql_delete);
 

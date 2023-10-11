@@ -4,7 +4,7 @@
    if($connector){
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
-            $sql_query = "SELECT * FROM EMPLOYEES ORDER BY employeeID DESC";
+            $sql_query = "SELECT * FROM EMPLOYEES WHERE deleted='false' ORDER BY employeeID DESC";
             $res_for = $connector -> query($sql_query);
 
             if($res_for){
@@ -57,7 +57,7 @@
            $id = $content['id'];
            $id = str_replace("'","\'", $id);
            if(!empty($id)){
-            $sql_delete = "DELETE FROM EMPLOYEES WHERE employeeID = '$id'";
+            $sql_delete = "UPDATE EMPLOYEES SET deleted='true'  WHERE employeeID = '$id'";
 
             $response = mysqli_query($connector, $sql_delete);
 
