@@ -9,8 +9,8 @@
             $res_for = $connector -> query($sql_query);
 
             if($res_for -> num_rows == 1){
-                $employees = "SELECT * FROM EMPLOYEES ";
-                $customers = "SELECT * FROM CUSTOMERS ";
+                $employees = "SELECT * FROM EMPLOYEES WHERE deleted='false'";
+                $customers = "SELECT * FROM CUSTOMERS WHERE deleted='false'";
                 $counte = 0;
                 $countc = 0;
                 if($connector -> query($employees)){

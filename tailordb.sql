@@ -63,6 +63,18 @@ CREATE TABLE DEALS (
     dateOut DATE
 );
 
+CREATE TABLE STOCKS (
+    stockID INT PRIMARY KEY AUTO_INCREMENT,
+    stockTitle VARCHAR(60),
+    stockDes TEXT,
+    stockCost INT,
+    registeredBy INT,
+    stockImage VARCHAR(40),
+    quantity INT,
+    dateIn DATE DEFAULT CURRENT_TIMESTAMP(),
+    FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 ALTER TABLE DEALS ADD FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE DEALS ADD FOREIGN KEY (customerId) REFERENCES CUSTOMERS (customerUnique) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -71,7 +83,8 @@ INSERT INTO ADMINS (adminID, adminFirst, adminLast, adminEmail, adminContact, ad
 
 INSERT INTO EMPLOYEES (employeeID, employeeFirst, employeeLast, employeeEmail, employeeAddress, employeeContact, employeeProfile, employeePasscode) VALUES (NULL, 'Adam','Smith','employe1@gmail.com','Mbezi Luis','+255628272363','/employee/employee__.jpg','employee1'),(NULL, 'Ryna','Walker','employe2@gmail.com','Goba','+255628272363','/employee/employee__.jpg','employee2');
 
-INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer 1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/profiles/profile.jpg','CM2334CM',1),(NULL, 'Customer 2','Doe','customer2@gmail.com','Dodoma Mjini','+255628272363','/profiles/profile.jpg','CM23343M',2);
+INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/profiles/1099665442.jpg','CM2334CM',1),(NULL, 'Customer2','Regun','customer2@gmail.com','Dodoma Mjini','+255628272363','/profiles/PRF587022459.jpg','CM23343M',2);
 
-INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, dealPicture, registeredBy, customerId, price, measurements, categories, quantity) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime.
-The size of the JavaScript library is fixed and doesn\'t depend on the features used. And it\'s actually really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900', 'L - 50ft, W - 30cm, HPS - 34inch', 'Men Trouser', 10),(NULL, 'Deal 1','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 54ft, W - 34cm, HPS - 34inch', 'Men Trouser', 3),(NULL, 'Deal 3','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 26ft, W - 37cm, HPS - 34inch','Women Skirt/Trouser', 6);
+INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, dealPicture, registeredBy, customerId, price, measurements, categories, quantity) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime. really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900', 'L - 50ft, W - 30cm, HPS - 34inch', 'Men Trouser', 10),(NULL, 'Deal 1','If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 54ft, W - 34cm, HPS - 34inch', 'Men Trouser', 3),(NULL, 'Deal 3','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 26ft, W - 37cm, HPS - 34inch','Women Skirt/Trouser', 6);
+
+INSERT INTO STOCKS ( stockTitle, stockDes, stockCost, registeredBy, stockImage, quantity ) VALUES ('WOUNDS PACKAGES','New Package from Mr. gamary delivery from user somebody at friday this week', 240000,2, '/stocks/two.jpg',14),('2 WOUNDS PACKAGES','Second New Package from Mr. gamary delivery from user somebody at friday this week', 40000,1, '/stocks/one.jpg',14);
