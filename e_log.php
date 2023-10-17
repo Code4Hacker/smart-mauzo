@@ -9,7 +9,7 @@
             $passcode = str_replace("'","\'", $passcode);
             $passcode = str_replace("'","\'", $passcode);
 
-            $sql_post = "SELECT * FROM EMPLOYEES WHERE employeeEmail = '$email' AND employeePasscode = '$passcode' ";
+            $sql_post = "SELECT * FROM EMPLOYEES WHERE employeeEmail = '$email' AND employeePasscode = '$passcode' AND deleted='false'";
             $addcustomer = $connector -> query($sql_post);
 
             if($addcustomer -> num_rows == 1){
@@ -22,7 +22,7 @@
             break; 
             case 'GET':
                 $email = $_GET['employee_id'];
-                $sql_query = "SELECT * FROM EMPLOYEES WHERE employeeEmail = '$email' ORDER BY employeeID DESC";
+                $sql_query = "SELECT * FROM EMPLOYEES WHERE employeeEmail = '$email' AND deleted='false' ORDER BY employeeID DESC";
                 $res_for = $connector -> query($sql_query);
     
                 if($res_for){

@@ -4,7 +4,7 @@
    if($connector){
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
-            $sql_query = "SELECT * FROM CUSTOMERS ORDER BY customerID DESC";
+            $sql_query = "SELECT * FROM CUSTOMERS WHERE deleted='false' ORDER BY customerID DESC";
             $res_for = $connector -> query($sql_query);
 
             if($res_for){

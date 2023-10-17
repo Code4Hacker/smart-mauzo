@@ -6,7 +6,7 @@
       case 'GET':
           $dealnum = $_GET['dealnum'];
           $sql_query = "SELECT * FROM DEALS WHERE customerId = '$dealnum' AND deleted='false' ORDER BY dealID DESC";
-          $sql_user = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$dealnum'";
+          $sql_user = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$dealnum' AND deleted='false'";
           $res_for = $connector -> query($sql_query);
           if($res_for){
               $row = $res_for -> fetch_assoc();

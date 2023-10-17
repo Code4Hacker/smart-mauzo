@@ -5,7 +5,7 @@
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
             $id = $_GET['id'];
-            $sql_query = "SELECT * FROM CUSTOMERS WHERE customerID = '$id'";
+            $sql_query = "SELECT * FROM CUSTOMERS WHERE customerID = '$id' AND deleted='false'";
             $res_for = $connector -> query($sql_query);
 
             if($res_for){

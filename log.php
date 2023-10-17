@@ -9,7 +9,7 @@
             $passcode = str_replace("'","\'", $passcode);
             $passcode = str_replace("'","\'", $passcode);
 
-            $sql_post = "SELECT * FROM ADMINS WHERE adminEmail = '$email' AND adminPasscode = '$passcode' ";
+            $sql_post = "SELECT * FROM ADMINS WHERE adminEmail = '$email' AND adminPasscode = '$passcode' AND deleted='false' ";
                 $addcustomer = $connector -> query($sql_post);
 
                 if($addcustomer -> num_rows == 1){

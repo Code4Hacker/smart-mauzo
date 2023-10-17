@@ -5,7 +5,7 @@
      switch($_SERVER['REQUEST_METHOD']){
         case 'GET':
             $id = $_GET['id'];
-            $sql_query = "SELECT employeeID FROM EMPLOYEES WHERE employeeEmail = '$id'";
+            $sql_query = "SELECT employeeID FROM EMPLOYEES WHERE employeeEmail = '$id' AND deleted='false'";
             $res_for = $connector -> query($sql_query);
 
             if($res_for){
