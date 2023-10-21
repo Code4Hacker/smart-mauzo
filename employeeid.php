@@ -11,7 +11,7 @@
             if($res_for){
                 $data_render = $res_for -> fetch_assoc()['employeeID'];
                 if(!empty($data_render)){
-                    $query_customers = "SELECT * FROM CUSTOMERS WHERE registeredBy = '$data_render' AND deleted = 'false'";
+                    $query_customers = "SELECT * FROM CUSTOMERS WHERE registeredBy = '$data_render' AND deleted = 'false' ORDER BY customerID DESC";
                     $res = $connector -> query($query_customers);
                     if($res){
                         $data = array();

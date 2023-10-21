@@ -6,7 +6,8 @@
         case 'GET':
             $employee = $_GET['employee'];
             $customer = $_GET['customer'];
-            $sql_query = "SELECT * FROM DEALS WHERE registeredBy = '$employee' AND customerId = '$customer' AND deleted = 'false' ORDER BY dealID DESC";
+            //  registeredBy = '$employee' AND 
+            $sql_query = "SELECT * FROM DEALS WHERE customerId = '$customer' AND deleted = 'false' ORDER BY dealID DESC";
             $res_for = $connector -> query($sql_query);
             if($res_for){
                 $data_render = array();

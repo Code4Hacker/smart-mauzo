@@ -31,7 +31,7 @@
             $registered = str_replace("'", "\'", $registered);
             $quantity = str_replace("'", "\'", $quantity);
 
-            if(!empty($stockTitle) && !empty($stockDes) && !empty($stockCost) && !empty($registered) && !empty($quantity) && !empty($photo)){
+            if(!empty($stockTitle) && !empty($stockDes) && !empty($stockCost) && !empty($registered) && !empty($quantity) && ($photo != undefined)){
                 $filepath = "stocks/STK_".rand().".".pathinfo($photo['name'], PATHINFO_EXTENSION);
                 if(move_uploaded_file($photo['tmp_name'], $filepath)){
                     $sql_post = "INSERT INTO STOCKS (stockTitle, stockDes, stockCost, registeredBy, stockImage, quantity) VALUES ('$stockTitle','$stockDes','$stockCost','$registered','/$filepath','$quantity')";

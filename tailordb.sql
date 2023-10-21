@@ -49,18 +49,26 @@ CREATE TABLE DEALS (
     dealTitle VARCHAR(30),
     dealDescription TEXT,
     dealRequirements TINYTEXT,
-    dealPicture VARCHAR(50),
     registeredBy INT,
     customerId VARCHAR(30),
-    price VARCHAR(100),
-    measurements TEXT,
-    categories VARCHAR(40),
     dealStatus VARCHAR(30) DEFAULT 'PENDING',
     tracking VARCHAR(30) DEFAULT 'IN PRODUCTION',
-    quantity INT,
     deleted VARCHAR(6) DEFAULT 'false',
     registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
     dateOut DATE
+);
+
+CREATE TABLE CONTENTS (
+    cID INT PRIMARY KEY AUTO_INCREMENT,
+    dealPicture VARCHAR(50),
+    price INT,
+    measurements TEXT,
+    categories VARCHAR(40),
+    quantity INT,
+    deleted VARCHAR(6) DEFAULT 'false',
+    deal INT,
+    FOREIGN KEY (deal) REFERENCES DEALS (dealID) ON DELETE CASCADE ON UPDATE CASCADE
+
 );
 
 CREATE TABLE STOCKS (
@@ -83,8 +91,10 @@ INSERT INTO ADMINS (adminID, adminFirst, adminLast, adminEmail, adminContact, ad
 
 INSERT INTO EMPLOYEES (employeeID, employeeFirst, employeeLast, employeeEmail, employeeAddress, employeeContact, employeeProfile, employeePasscode) VALUES (NULL, 'Adam','Smith','employe1@gmail.com','Mbezi Luis','+255628272363','/employee/employee__.jpg','employee1'),(NULL, 'Ryna','Walker','employe2@gmail.com','Goba','+255628272363','/employee/employee__.jpg','employee2');
 
-INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/profiles/1099665442.jpg','CM2334CM',1),(NULL, 'Customer2','Regun','customer2@gmail.com','Dodoma Mjini','+255628272363','/profiles/PRF587022459.jpg','CM23343M',2);
+INSERT INTO CUSTOMERS (customerID, customerFirst, customerLast, customerEmail, customerAddress, customerContact, customerProfile, customerUnique, registeredBy) VALUES (NULL, 'Customer1','Wayne','customer1@gmail.com','Arusha Mjini','+255628272363','/profiles/1099665442.jpg','001/10/2023',1),(NULL, 'Customer2','Regun','customer2@gmail.com','Dodoma Mjini','+255628272363','/profiles/PRF587022459.jpg','002/9/2023',2),(NULL, 'Customer3','Rahim','customer3@gmail.com','Dodoma Mjini','+255628272363','/profiles/PRF587022459.jpg','003/11/2023',1);
 
-INSERT INTO DEALS (dealID, dealTitle, dealDescription, dealRequirements, dealPicture, registeredBy, customerId, price, measurements, categories, quantity) VALUES (NULL, 'Deal 2','Rendering code is browser- and platform-independent which provides increased compatibility and portability. If it renders once, it will render anytime. really tiny ','demo shooes 3 inches','/deals/employee__.jpg',2,'CM23343M','203900', 'L - 50ft, W - 30cm, HPS - 34inch', 'Men Trouser', 10),(NULL, 'Deal 1','If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 54ft, W - 34cm, HPS - 34inch', 'Men Trouser', 3),(NULL, 'Deal 3','For some charts, data has to be uploaded to Google servers for the chart to be rendered. If you deal with sensitive data, please check the Google APIs Terms of Service. Also, make sure to always check the Data Policy sections in the docs. In this tutorial','32ft cloth pt','/deals/employee__.jpg',1,'CM2334CM',548900, 'L - 26ft, W - 37cm, HPS - 34inch','Women Skirt/Trouser', 6);
+INSERT INTO DEALS (dealID,dealTitle,dealDescription,dealRequirements,registeredBy,customerId) VALUES (NULL, 'Deal Number 1',' Simple Descripiton one', 'Requirement for one - 5090\nOne to two - 3200 \nthree to four - 5000',2,'001/10/2023'),(NULL, 'Deal Number 2',' Simple Descripiton two', 'Requirement for one - 3400 \nTwd to two - 900\nthree to four - 74500',1,'001/10/2023'),(NULL, 'Deal Number 3',' ase Descripiton one', 'Requirement for one - 2000 \nOne to two - 4900 \nthree to four - 3400',1,'002/9/2023'),(NULL, 'Deal Number 4',' Simple Descripiton one', 'Requirement for one\nOne to two\nthree to four',2,'003/11/2023');
+
+INSERT INTO CONTENTS (cID,price,measurements,categories,quantity,deal) VALUES (NULL, 24000,' Sit - 20mm, L - 43cm, W - 12cm', 'Men Jacket',2,2),(NULL, 4000,' Sit - 20mm, L - 43cm, W - 12cm', 'Women Jacket',11,1),(NULL, 34000,'t - 20mm, L - 43cm, W - 12cm', 'Men Trouser',1,2),(NULL, 5400,' Sit - 20mm, L - 43cm, W - 12cm', 'Women Jacket',22,3);
 
 INSERT INTO STOCKS ( stockTitle, stockDes, stockCost, registeredBy, stockImage, quantity ) VALUES ('WOUNDS PACKAGES','New Package from Mr. gamary delivery from user somebody at friday this week', 240000,2, '/stocks/two.jpg',14),('2 WOUNDS PACKAGES','Second New Package from Mr. gamary delivery from user somebody at friday this week', 40000,1, '/stocks/one.jpg',14);
