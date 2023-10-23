@@ -16,8 +16,9 @@ if ($connector) {
                 $deal_tracking = $main_desc['deal_tracking'];
                 $registered_by = $main_desc['registered_by'];
                 $customer = $main_desc['customer'];
+                $the_worker = $main_desc['the_worker'];
 
-                $query = "INSERT INTO DEALS (dealTitle, dealDescription, dealRequirements,registeredBy, customerId,dealStatus,tracking) VALUES ('$title','$description','$requirements','$registered_by','$customer','$pay_status','$deal_tracking')";
+                $query = "INSERT INTO DEALS (dealTitle, dealDescription, dealRequirements,registeredBy, customerId,dealStatus,tracking,mini_employee) VALUES ('$title','$description','$requirements','$registered_by','$customer','$pay_status','$deal_tracking','$the_worker')";
 
                 $push = $connector -> query($query);
                 if($push){

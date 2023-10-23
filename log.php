@@ -2,7 +2,21 @@
    include_once("connector.php");
 
    if($connector){
-     switch($_SERVER['REQUEST_METHOD']){
+     switch($_SERVER['REQUEST_METHOD']){ 
+        case 'GET':
+            $email = $_GET['a_id'];
+            $sql_query = "SELECT * FROM ADMINS WHERE adminEmail = '$email' AND deleted='false'";
+            $res_for = $connector -> query($sql_query);
+
+            if($res_for){
+                $data_render = array();
+                while($row = $res_for -> fetch_assoc()){
+                    $data_render[] = $row;
+                }
+                echo json_encode(array("status" => "200","adm" => $data_render));
+            }
+            $connector -> close();
+            break;     
         case 'POST':
             $email = $_POST['Aemail'];
             $passcode = $_POST['Apasscode'];

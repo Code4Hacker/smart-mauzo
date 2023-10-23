@@ -31,7 +31,7 @@
             $registered = str_replace("'", "\'", $registered);
             $quantity = str_replace("'", "\'", $quantity);
 
-            if(!empty($stockTitle) && !empty($stockDes) && !empty($stockCost) && !empty($registered) && !empty($quantity) && ($photo != undefined)){
+            if(!empty($stockTitle) && !empty($stockDes) && !empty($stockCost) && !empty($registered) && !empty($quantity)){
                 $filepath = "stocks/STK_".rand().".".pathinfo($photo['name'], PATHINFO_EXTENSION);
                 if(move_uploaded_file($photo['tmp_name'], $filepath)){
                     $sql_post = "INSERT INTO STOCKS (stockTitle, stockDes, stockCost, registeredBy, stockImage, quantity) VALUES ('$stockTitle','$stockDes','$stockCost','$registered','/$filepath','$quantity')";
@@ -39,6 +39,15 @@
                     $responses = $connector -> query($sql_post);
                     if($responses){
                         echo json_encode(array("status" => "200", "message" => "POSTED"));
+                    }else{
+                        echo json_encode(array("status" => "500", "message" => "NOT POSTED"));
+                    }
+                }else{
+                    $sql_post = "INSERT INTO STOCKS (stockTitle, stockDes, stockCost, registeredBy, quantity) VALUES ('$stockTitle','$stockDes','$stockCost','$registered','$quantity')";
+
+                    $responses = $connector -> query($sql_post);
+                    if($responses){
+                        echo json_encode(array("status" => "200", "message" => "POSTED WITHOUT IMAGE"));
                     }else{
                         echo json_encode(array("status" => "500", "message" => "NOT POSTED"));
                     }

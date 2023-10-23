@@ -57,7 +57,7 @@ CREATE TABLE DEALS (
     registeredBy INT,
     customerId VARCHAR(30),
     dealStatus VARCHAR(30) DEFAULT 'PENDING',
-    tracking VARCHAR(30) DEFAULT 'IN PRODUCTION',
+    tracking VARCHAR(30) DEFAULT 'WAITING',
     deleted VARCHAR(6) DEFAULT 'false',
     registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
     mini_employee VARCHAR(255),
