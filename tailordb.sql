@@ -85,6 +85,8 @@ CREATE TABLE STOCKS (
     registeredBy INT,
     stockImage VARCHAR(40),
     quantity INT,
+    deleted VARCHAR(6) DEFAULT 'false',
+    category VARCHAR(50),
     dateIn DATE DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -312,7 +314,8 @@ INSERT INTO
         stockCost,
         registeredBy,
         stockImage,
-        quantity
+        quantity,
+        category
     )
 VALUES
     (
@@ -321,13 +324,31 @@ VALUES
         240000,
         2,
         '/stocks/two.jpg',
-        14
+        14,
+        'FABRIC'
+    ),(
+        'BLACK SHOES',
+        'Three rolled Cart, Belt nun and flickers',
+        56500,
+        2,
+        '/stocks/two.jpg',
+        14,
+        'SHOES'
+    ),(
+        'WATER',
+        'This Month payed a DAWASA mount',
+        6400,
+        2,
+        '/stocks/one.jpg',
+        14,
+        'BILLS'
     ),
 (
-        '2 WOUNDS PACKAGES',
+        '2 PACKAGES',
         'Second New Package from Mr. gamary delivery from user somebody at friday this week',
         40000,
         1,
         '/stocks/one.jpg',
-        14
+        14,
+        'CLOTHES'
     );

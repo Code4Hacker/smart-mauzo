@@ -4,7 +4,9 @@ include_once("connector.php");
 if ($connector) {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
-            $get_total = "SELECT * FROM DEALS WHERE deleted='false' AND dealStatus != 'PENDING'";
+            $datestart = $_GET['start'];
+            $dateto_end = $_GET['to_end'];
+            $get_total = "SELECT * FROM DEALS WHERE deleted='false' AND dealStatus != 'PENDING' AND registedDate BETWEEN '$datestart' AND '$dateto_end' ORDER BY dealID DESC";
             $response = $connector->query($get_total);
             $full = 0;
             if ($response) {
