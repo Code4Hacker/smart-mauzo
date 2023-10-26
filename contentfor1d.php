@@ -5,6 +5,7 @@ if ($connector) {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             $id = $_GET['id'];
+            // $name_worker = $_GET['mini_employee'];
             $sql_query = "SELECT * FROM CONTENTS WHERE deal = '$id' AND deleted = 'false' ORDER BY cID DESC";
             $res_for = $connector->query($sql_query);
             if ($res_for) {

@@ -5,11 +5,13 @@ if ($connector) {
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             $id = $_GET['id'];
+            $datestart = $_GET['start'];
+            $dateto_end = $_GET['to_end'];
             // $sql_query = "SELECT * FROM ADMINS WHERE adminEmail = '$admin' ORDER BY adminID DESC";
             // $res_for = $connector->query($sql_query);
 
             // if ($res_for->num_rows == 1) {
-                $get_total = "SELECT * FROM DEALS WHERE deleted='false' AND mini_employee='$id' AND dealStatus != 'PENDING'";
+                $get_total = "SELECT * FROM DEALS WHERE deleted='false' AND registedDate BETWEEN '$datestart' AND '$dateto_end'  AND dealStatus != 'PENDING'";
                 $response = $connector->query($get_total);
                 $full = 0;
                 if ($response) {
@@ -17,7 +19,7 @@ if ($connector) {
                     // $a = array();
                     while ($row = $response->fetch_assoc()) {
                         $a = $row['dealID'];
-                        $sql = "SELECT * FROM CONTENTS WHERE deleted='false' AND deal='$a'";
+                        $sql = "SELECT * FROM CONTENTS WHERE deleted='false' AND mini_employee='$id' AND deal='$a'";
                         $res = $connector->query($sql);
                         $se = array();
                         while ($row2 = $res->fetch_assoc()) {

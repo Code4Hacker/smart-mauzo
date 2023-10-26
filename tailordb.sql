@@ -60,9 +60,7 @@ CREATE TABLE DEALS (
     tracking VARCHAR(30) DEFAULT 'WAITING',
     deleted VARCHAR(6) DEFAULT 'false',
     registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
-    mini_employee VARCHAR(255),
-    dateOut DATE,
-    FOREIGN KEY (mini_employee) REFERENCES WORKERS (workerName) ON DELETE CASCADE ON UPDATE CASCADE
+    dateOut DATE
 );
 
 CREATE TABLE CONTENTS (
@@ -74,6 +72,8 @@ CREATE TABLE CONTENTS (
     quantity INT,
     deleted VARCHAR(6) DEFAULT 'false',
     deal INT,
+    mini_employee VARCHAR(255),
+    registedDate DATE DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (deal) REFERENCES DEALS (dealID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -90,6 +90,11 @@ CREATE TABLE STOCKS (
     dateIn DATE DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (registeredBy) REFERENCES EMPLOYEES (employeeID) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+ALTER TABLE
+    CONTENTS
+ADD
+    FOREIGN KEY (mini_employee) REFERENCES WORKERS (workerName) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE
     DEALS
@@ -153,7 +158,7 @@ VALUES
         '/employee/employee__.jpg',
         'employee1'
     ),
-(
+    (
         NULL,
         'Ryna',
         'Walker',
@@ -188,7 +193,7 @@ VALUES
         '001/10/2023',
         1
     ),
-(
+    (
         NULL,
         'Customer2',
         'Regun',
@@ -199,7 +204,7 @@ VALUES
         '002/9/2023',
         2
     ),
-(
+    (
         NULL,
         'Customer3',
         'Rahim',
@@ -210,19 +215,15 @@ VALUES
         '003/11/2023',
         1
     );
-INSERT INTO 
-    WORKERS (
-        workerName
-    )
-VALUES (
-    'Ramadhani Juma'
-),(
-    'Hendry Adam'
-),(
-    'Hatibu Juma'
-),(
-    'Jackson Juma'
-);
+
+INSERT INTO
+    WORKERS (workerName)
+VALUES
+    ('Ramadhani Juma'),
+('Hendry Adam'),
+('Hatibu Juma'),
+('Jackson Juma');
+
 INSERT INTO
     DEALS (
         dealID,
@@ -230,8 +231,7 @@ INSERT INTO
         dealDescription,
         dealRequirements,
         registeredBy,
-        customerId,
-        mini_employee
+        customerId
     )
 VALUES
     (
@@ -240,39 +240,43 @@ VALUES
         ' Simple Descripiton one',
         'Requirement for one - 5090\nOne to two - 3200 \nthree to four - 5000',
         2,
-        '001/10/2023',
-        'Ramadhani Juma'
+        '001/10/2023'
     ),
-(
+    (
         NULL,
         'Deal Number 2',
         ' Simple Descripiton two',
         'Requirement for one - 3400 \nTwd to two - 900\nthree to four - 74500',
         1,
-        '001/10/2023',
-        'Hendry Adam'
+        '001/10/2023'
     ),
-(
+    (
         NULL,
         'Deal Number 3',
         ' ase Descripiton one',
         'Requirement for one - 2000 \nOne to two - 4900 \nthree to four - 3400',
         1,
-        '002/9/2023',
-        'Hatibu Juma'
+        '002/9/2023'
     ),
-(
+    (
         NULL,
         'Deal Number 4',
         ' Simple Descripiton one',
         'Requirement for one\nOne to two\nthree to four',
         2,
-        '003/11/2023',
-        'Jackson Juma'
+        '003/11/2023'
     );
 
 INSERT INTO
-    CONTENTS (cID, price, measurements, categories, quantity, deal)
+    CONTENTS (
+        cID,
+        price,
+        measurements,
+        categories,
+        quantity,
+        deal,
+        mini_employee
+    )
 VALUES
     (
         NULL,
@@ -280,31 +284,44 @@ VALUES
         ' Sit - 20mm, L - 43cm, W - 12cm',
         'Men Jacket',
         2,
-        2
+        2,
+        'Ramadhani Juma'
     ),
-(
+    (
         NULL,
         4000,
         ' Sit - 20mm, L - 43cm, W - 12cm',
         'Women Jacket',
         11,
-        1
+        1,
+        'Jackson Juma'
     ),
-(
+    (
         NULL,
         34000,
         't - 20mm, L - 43cm, W - 12cm',
         'Men Trouser',
         1,
-        2
+        2,
+        'Jackson Juma'
     ),
-(
+    (
         NULL,
         5400,
         ' Sit - 20mm, L - 43cm, W - 12cm',
         'Women Jacket',
         22,
-        3
+        3,
+        'Hatibu Juma'
+    ),
+    (
+        NULL,
+        5400,
+        ' Sit - 20mm, L - 43cm, W - 12cm, L - 43cm, W - 12cm',
+        'Women Jacket',
+        22,
+        3,
+        'Hendry Adam'
     );
 
 INSERT INTO
@@ -326,7 +343,8 @@ VALUES
         '/stocks/two.jpg',
         14,
         'FABRIC'
-    ),(
+    ),
+(
         'BLACK SHOES',
         'Three rolled Cart, Belt nun and flickers',
         56500,
@@ -334,7 +352,8 @@ VALUES
         '/stocks/two.jpg',
         14,
         'SHOES'
-    ),(
+    ),
+(
         'WATER',
         'This Month payed a DAWASA mount',
         6400,
@@ -343,7 +362,7 @@ VALUES
         14,
         'BILLS'
     ),
-(
+    (
         '2 PACKAGES',
         'Second New Package from Mr. gamary delivery from user somebody at friday this week',
         40000,

@@ -16,36 +16,36 @@ if ($connector) {
                 $deal_tracking = $main_desc['deal_tracking'];
                 $registered_by = $main_desc['registered_by'];
                 $customer = $main_desc['customer'];
-                $the_worker = $main_desc['the_worker'];
 
-                $query = "INSERT INTO DEALS (dealTitle, dealDescription, dealRequirements,registeredBy, customerId,dealStatus,tracking,mini_employee) VALUES ('$title','$description','$requirements','$registered_by','$customer','$pay_status','$deal_tracking','$the_worker')";
+                $query = "INSERT INTO DEALS (dealTitle, dealDescription, dealRequirements,registeredBy, customerId,dealStatus,tracking) VALUES ('$title','$description','$requirements','$registered_by','$customer','$pay_status','$deal_tracking')";
 
-                $push = $connector -> query($query);
-                if($push){
+                $push = $connector->query($query);
+                if ($push) {
                     $getId = "SELECT dealID FROM DEALS ORDER BY dealID DESC";
-                    $getCheck = $connector -> query($getId);
-                    if($getCheck){
+                    $getCheck = $connector->query($getId);
+                    if ($getCheck) {
                         $content = "";
                         $res = 1;
-                        $row = $getCheck -> fetch_assoc()['dealID'];
+                        $row = $getCheck->fetch_assoc()['dealID'];
                         foreach ($bodydata as $item) {
                             $measurement = $item['measurement'];
                             $category = $item['category'];
                             $price = $item['price'];
                             $quantity = $item['quantity'];
+                            $the_worker = $item['the_worker'];
                             $category = $item['category'];
-    
-                            $content = "INSERT INTO CONTENTS (cID,price,measurements,categories,quantity,deal) VALUES (NULL, '$price','$measurement', '$category','$quantity','$row')";
-                            if($connector -> query($content)){
+
+                            $content = "INSERT INTO CONTENTS (cID,price,measurements,categories,quantity,deal,mini_employee) VALUES (NULL, '$price','$measurement', '$category','$quantity','$row','$the_worker')";
+                            if ($connector->query($content)) {
                                 $res = "nice";
-                            }else{
+                            } else {
                                 $res = "bad";
                             }
-                            
+
                             // echo json_encode(array("status" => "200", "message" => $measurement));
-                            
+
                         }
-                        switch($res){
+                        switch ($res) {
                             case "nice":
                                 echo json_encode(array("status" => "200", "message" => "Data Success"));
                                 break;
@@ -56,10 +56,10 @@ if ($connector) {
                                 echo json_encode(array("status" => "400", "message" => "We can't Understand"));
                                 break;
                         }
-                    }else{
+                    } else {
                         echo json_encode(array("status" => "500", "message" => "Something Went Wrong"));
                     }
-                }else{
+                } else {
                     echo json_encode(array("status" => "500", "message" => "Something Went Wrong"));
                 }
 
