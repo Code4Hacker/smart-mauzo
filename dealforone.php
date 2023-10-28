@@ -44,7 +44,7 @@
             $tracking = str_replace("'", "\'", $tracking);
             $quantity = str_replace("'", "\'", $quantity);
 
-            $sql_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$customerId'";
+            $sql_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$customerId' AND deleted='false'";
             $res_for = $connector -> query($sql_query);
 
             if($res_for -> num_rows == 1){

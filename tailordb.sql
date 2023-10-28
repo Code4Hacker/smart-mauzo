@@ -237,7 +237,7 @@ VALUES
     (
         NULL,
         'Deal Number 1',
-        ' Simple Descripiton one',
+        ' Simple Descripiton, one',
         'Requirement for one - 5090\nOne to two - 3200 \nthree to four - 5000',
         2,
         '001/10/2023'
@@ -245,7 +245,7 @@ VALUES
     (
         NULL,
         'Deal Number 2',
-        ' Simple Descripiton two',
+        ' Simple, Descripiton two',
         'Requirement for one - 3400 \nTwd to two - 900\nthree to four - 74500',
         1,
         '001/10/2023'
@@ -261,7 +261,7 @@ VALUES
     (
         NULL,
         'Deal Number 4',
-        ' Simple Descripiton one',
+        ' Simple Descri, piton one',
         'Requirement for one\nOne to two\nthree to four',
         2,
         '003/11/2023'

@@ -15,7 +15,7 @@ if ($connector) {
                 $result = $connector -> query($sql);
                 if($result){
                     $res = $result -> fetch_assoc()['customerId'];
-                    $new_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$res'";
+                    $new_query = "SELECT * FROM CUSTOMERS WHERE customerUnique = '$res' AND deleted='false' ";
                     $respond = $connector -> query($new_query) -> fetch_assoc();
                     $name_for = $respond['customerFirst'] . " " . $respond['customerLast'];
                 }
