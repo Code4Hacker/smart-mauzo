@@ -41,7 +41,7 @@ if ($connector) {
             $quantity = str_replace("'", "\'", $quantity);
             $category = str_replace("'", "\'", $category);
 
-            if (!empty($stockTitle) && !empty($stockDes) && !empty($stockCost) && !empty($registered) && !empty($quantity)) {
+            if (!empty($stockTitle)) {
                 if (!empty($photo)) {
                     $filepath = "stocks/STK_" . rand() . "." . pathinfo($photo['name'], PATHINFO_EXTENSION);
                     if (move_uploaded_file($photo['tmp_name'], $filepath)) {
