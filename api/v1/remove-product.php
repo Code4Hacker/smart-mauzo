@@ -30,16 +30,13 @@ if ($connector) {
             $connector->close();
             break;
         case 'GET':
-            $select = "SELECT * FROM PRODUCT WHERE deleted='FL' ORDER BY productId DESC";
+            $product = $_GET['id'];
+            $select = "UPDATE PRODUCT SET deleted='TR' WHERE productId = '$product'";
             $result  = $connector -> query($select);
             if($result){
-                $data = array();
-
-                while($row = $result -> fetch_assoc()){
-                    $data[] = $row;
-                }
-               echo json_encode(array("status" => "200", "products" => $data));
-
+               echo json_encode(array("status" => "200", "p_status" => 'deleted'));
+            }else{
+               echo json_encode(array("status" => "500", "p_status" => 'Something Wrong'));
             }
             break;
         default:

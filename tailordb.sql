@@ -49,6 +49,7 @@ CREATE TABLE PRODUCT (
     sellingPrice int DEFAULT 0,
     buyingPrice int,
     quantity int DEFAULT 1,
+    deleted VARCHAR(2) DEFAULT 'FL',
     registedDate DATE DEFAULT CURRENT_TIMESTAMP()
 );
 CREATE TABLE WORKERS (
